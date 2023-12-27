@@ -20,7 +20,7 @@
         {{-- Name field --}}
         <div class="input-group mb-3">
             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                   value="{{ old('name') }}" placeholder="{{ __('adminlte::adminlte.full_name') }}" autofocus>
+                   value="{{ old('name') }}" placeholder="{{ __('Nombre') }}" required="required"autofocus>
 
             <div class="input-group-append">
                 <div class="input-group-text">
@@ -34,11 +34,59 @@
                 </span>
             @enderror
         </div>
+        <div class="input-group mb-3">
+            <input type="text" name="last_name" class="form-control @error('last_name') is-invalid @enderror"
+                   value="{{ old('last_name') }}" placeholder="{{ __('Apellido') }}" required="required"autofocus>
+
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-user {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                </div>
+            </div>
+
+            @error('last_name')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" name="number_id" class="form-control @error('number_id') is-invalid @enderror"
+                   value="{{ old('number_id') }}" placeholder="{{ __('Cédula') }} por defecto(V00000000)" required="required"autofocus>
+
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-address-card {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                </div>
+            </div>
+
+            @error('number_id')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+        <div class="input-group mb-3">
+            <input type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror"
+                   value="{{ old('phone') }}" placeholder="{{ __('Teléfono') }} por defecto(+5800000000)" required="required"autofocus>
+
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-phone {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                </div>
+            </div>
+
+            @error('phone')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
 
         {{-- Email field --}}
         <div class="input-group mb-3">
             <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                   value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}">
+                   value="{{ old('email') }}" placeholder="{{ __('Correo') }}">
 
             <div class="input-group-append">
                 <div class="input-group-text">

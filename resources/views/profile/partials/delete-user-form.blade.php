@@ -23,8 +23,8 @@
             </p>
 
             <div class="mt-6">
-                <x-input-label for="password" value="{{ __('Contraseña') }}" class="sr-only" />
                 <x-adminlte-input
+                    label="{{ __('Contraseña') }}"
                     id="password"
                     name="password"
                     type="password"

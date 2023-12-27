@@ -36,8 +36,23 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        if (($request->number_id[0] != "V" || $request->number_id[0] != "E" || $request->number_id[0] != "J" )) {
+            $pre_value = preg_replace("/[^0-9-.]/", "", $request->number_id);
+            $number_id = "V".$pre_value;
+        } else {
+            $legal = $request->number_id[0];
+            $pre_value = preg_replace("/[^0-9-.]/", "", $request->number_id);
+            $number_id = $legal."".$pre_value;
+        }        
+        
+        $phone = ($request->user()->phone);
+        $phone = (($phone[0]) != "+") ? "+58".$request->user()->phone : $request->user()->phone;
+
         $user = User::create([
             'name' => $request->name,
+            'last_name' => $request->last_name,
+            'phone' => $phone,
+            'number_id' => $number_id,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);

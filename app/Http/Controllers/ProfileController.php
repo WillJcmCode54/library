@@ -27,6 +27,21 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
+          
+        if (($request->number_id[0] != "V" || $request->number_id[0] != "E" || $request->number_id[0] != "J" )) {
+            $pre_value = preg_replace("/[^0-9-.]/", "", $request->number_id);
+            $number_id = "V".$pre_value;
+        } else {
+            $legal = $request->number_id[0];
+            $pre_value = preg_replace("/[^0-9-.]/", "", $request->number_id);
+            $number_id = $legal."".$pre_value;
+        }        
+        
+        $phone = ($request->user()->phone);
+        $phone = (($phone[0]) != "+") ? "+58".$request->user()->phone : $request->user()->phone;
+
+        $request->user()->number_id = $number_id;
+        $request->user()->phone = $phone;
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;

@@ -18,29 +18,24 @@
         @method('patch')
 
         <div>
-            <x-input-label for="name" :value="__('Nombre')" />
-            <x-adminlte-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
+            <x-adminlte-input label="Nombre" id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
         <div>
-            <x-input-label for="last_name" :value="__('Apellido')" />
-            <x-adminlte-input id="last_name" name="last_name" type="text" class="mt-1 block w-full" :value="old('last_name', $user->last_name)" required autofocus autocomplete="last_name" />
+            <x-adminlte-input label="Apellido" id="last_name" name="last_name" type="text" class="mt-1 block w-full" :value="old('last_name', $user->last_name)" required autofocus autocomplete="last_name" />
             <x-input-error class="mt-2" :messages="$errors->get('last_name')" />
         </div>
         <div>
-            <x-input-label for="number_id" :value="__('Cédula')" />
-            <x-adminlte-input id="number_id" name="number_id" type="text" class="mt-1 block w-full" :value="old('number_id', $user->number_id)" required autofocus autocomplete="number_id" />
+            <x-adminlte-input label="Cédula" id="number_id" name="number_id" type="text" class="mt-1 block w-full" :value="old('number_id', $user->number_id)" required autofocus autocomplete="number_id" />
             <x-input-error class="mt-2" :messages="$errors->get('number_id')" />
         </div>
         <div>
-            <x-input-label for="phone" :value="__('teléfono')" />
-            <x-adminlte-input id="phone" name="phone" type="tel" class="mt-1 block w-full" :value="old('phone', $user->phone)" required autofocus autocomplete="phone" />
+            <x-adminlte-input label="teléfono" id="phone" name="phone" type="tel" class="mt-1 block w-full" :value="old('phone', $user->phone)" required autofocus autocomplete="phone" />
             <x-input-error class="mt-2" :messages="$errors->get('phone')" />
         </div>
 
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-adminlte-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
+            <x-adminlte-input label="Correo" id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
             {{-- @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())

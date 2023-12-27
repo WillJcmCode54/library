@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('type_movement');
             $table->date('loan_date');
             $table->date('retun_date');
-            $table->date('real_date');
+            $table->date('real_date')->nullable();
             $table->integer('user_id');
             $table->integer('customer_id');
             $table->timestamps();
