@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>Biblioteca</b>Virtual',
+    'logo_img' => 'vendor/adminlte/dist/img/logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => 'Logo',
 
     /*
     |--------------------------------------------------------------------------
@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'vendor/adminlte/dist/img/logo.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -109,8 +109,8 @@ return [
     'preloader' => [
         'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-            'alt' => 'AdminLTE Preloader Image',
+            'path' => 'vendor/adminlte/dist/img/logo.png',
+            'alt' => 'BibliotecaVirtual Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
             'height' => 60,
@@ -290,98 +290,77 @@ return [
     */
 
     'menu' => [
-        // Navbar items:
+      
+        // Sidebar items
+        ['header' => 'main_navigation'],
         [
-            'type'         => 'navbar-search',
-            'text'         => 'search',
-            'topnav_right' => true,
+            'text' => 'Dashboard',
+            'url'  => '/dashboard',
+            'icon' => 'fas fa-fw fa-home',
         ],
         [
-            'type'         => 'fullscreen-widget',
-            'topnav_right' => true,
-        ],
-
-        // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
+            'text' => 'Books',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-book',
         ],
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-        [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
+            'text'    => 'Movimientos',
+            'icon'    => 'fas fa-fw fa-tasks',
             'submenu' => [
                 [
-                    'text' => 'level_one',
+                    'text' => 'resumen',
+                    'icon' => 'fas fa-fw fa-eye',
                     'url'  => '#',
                 ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
+                    'text' => 'prestamos',
+                    'icon' => 'fas fa-fw fa-thumbtack',
+                    'submenu' =>[
+                        [
+                            'text' => 'show',
+                            'icon' => 'fas fa-fw fa-eye',
+                            'url' => '#',
+                        ],
+                        [
+                            'text' => 'register',
+                            'icon' => 'fas fa-fw fa-folder-open',
+                            'url' => '#',
+                        ],
+                        ]
+                ],
+                [
+                    'text' => 'devoluciones',
+                    'icon' => 'fas fa-fw fa-thumbtack',
                     'submenu' => [
                         [
-                            'text' => 'level_two',
-                            'url'  => '#',
+                            'text' => 'show',
+                            'icon' => 'fas fa-fw fa-eye',
+                            'url' => '#',
                         ],
                         [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
+                            'text' => 'register',
+                            'icon' => 'fas fa-fw fa-folder-open',
+                            'url' => '#',
                         ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                ]
                 ],
             ],
         ],
-        ['header' => 'labels'],
+        ['header' => 'settings'],
         [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
+            'text' => 'profile',
+            'url'  => '/profile',
+            'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
+            'text' => 'customers',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-users',
         ],
         [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
+            'text' => 'shelfs',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-bookmark',
         ],
     ],
 
