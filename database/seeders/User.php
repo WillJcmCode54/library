@@ -16,8 +16,10 @@ class User extends Seeder
     {
         ModelsUser::create([
             'name' => 'Admin' ,
+            'last_name' => 'admin' ,
+            'number_id' => 'V-0000000' ,
+            'phone' => '+000000000' ,
             'email' => 'admin@example.com',
-            'username' => 'Admin_Master',
             'password' => Hash::make('12345678'),
         ]);
     }
