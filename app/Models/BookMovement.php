@@ -14,9 +14,9 @@ class BookMovement extends Model
      * Vision general
      */
 
-    private $table = "book_movements";
+    public $table = "book_movements";
 
-    protected $fillable = [
+    public $fillable = [
         'id',
         'type_movement',
         'loan_date',

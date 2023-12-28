@@ -10,8 +10,8 @@ class Customer extends Model
     use HasFactory;
     /* Table de Clientes */
 
-    private $table = "customers";
-    protected $fillable = [
+    public $table = "customers";
+    public $fillable = [
         'id',
         'name',
         'last_name',

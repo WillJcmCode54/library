@@ -10,13 +10,15 @@ class Book extends Model
     use HasFactory;
 
     /* Tabla para almacenar los libros  */
-    private $table = "Books";
-    protected $fillable = [
+    public $table = "Books";
+    public $fillable = [
         'id',
         'title',
         'author',
         'editorial',
-        'publications_year',
-        'genre'
+        'decription',
+        'publication_year',
+        'genre',
+        'shelf_id',
     ];
 }

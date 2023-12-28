@@ -13,8 +13,8 @@ class DetailsBookMovement extends Model
     * Vision detallada
     */
 
-    private $table = "details_book_movement";
-    protected $fillable = [
+    public $table = "details_book_movement";
+    public $fillable = [
         'id',
         'book_movement_id',
         'type_movement',

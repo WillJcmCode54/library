@@ -16,8 +16,10 @@ return new class extends Migration
             $table->string('title');
             $table->string('author');
             $table->string('editorial');
+            $table->string('decription');
             $table->year('publication_year');
             $table->string('genre');
+            $table->integer('shelf_id');
             $table->timestamps();
         });
     }

@@ -9,9 +9,9 @@ class Warehouse extends Model
 {
     use HasFactory;
     /* tabla de almacen */
-    private $table = "warehouse";
+    public $table = "warehouse";
 
-    protected $fillable = [
+    public $fillable = [
         'id',
         'book_id',
         'actual_quantity'

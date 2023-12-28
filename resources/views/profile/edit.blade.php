@@ -4,17 +4,22 @@
 @section('title', 'Perfil')
 
 @section('content_header')
-<h1>Perfil</h1>
+<div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-sm-6">
+        <h1>Perfil</h1>
+        </div>
+        <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+                <li class="breadcrumb-item active">Perfil</li>
+            </ol>
+        </div>
+    </div>
+</div>
 @stop
 
 @section('content')
-<x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{ __('Profile') }}
-    </h2>
-</x-slot>
-
-
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
         <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
@@ -37,8 +42,4 @@
     </div>
 </div>
 
-@stop
-
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
 @stop

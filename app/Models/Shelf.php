@@ -11,10 +11,10 @@ class Shelf extends Model
 
     /* Tabla de estanterias */
 
-    private $table = "shelfs";
-    protected $fillable = [
+    public $table = "shelfs";
+    public $fillable = [
         'id',
         'name',
-        'description'
+        'decription'
     ];
 }
