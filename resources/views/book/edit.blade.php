@@ -1,18 +1,19 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Clientes')
+@section('title', 'Libros')
 
 @section('content_header')
+
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-            <h1>Clientes</h1>
+            <h1>Libros</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{route('home')}}">Dashboard</a></li>
-                    <li class="breadcrumb-item" ><a href="{{route('book.index')}}">Clientes</a></li>
+                    <li class="breadcrumb-item" ><a href="{{route('book.index')}}">Libros</a></li>
                     <li class="breadcrumb-item active">Editar</li>
                 </ol>
             </div>
@@ -27,7 +28,7 @@
         </x-adminlte-alert>
     @endif
     @if($message = Session::get('error'))
-        <x-adminlte-alert theme="danger" title="Danger" dismissable> 
+        <x-adminlte-alert theme="danger" title="Error" dismissable> 
             {{$message}}
         </x-adminlte-alert>
     @endif
@@ -35,23 +36,23 @@
     <div class="card-header">
         <h3 class="card-title">Editar de Libro</h3>
     </div>
-    <form action="{{ route('book.update',['id'=> $book->id]) }}" method="post">
+    <form action="{{ route('book.update', ['id' => $book->id]) }}" method="post">
         @csrf
         <div class="card-body">
             {{-- Name field --}}
             <div class="row">
                 <div class="col-md-6">
                     <div class="input-group mb-3">
-                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                               value="{{ $book->name }}" placeholder="{{ __('Nombre') }}" required="required"autofocus>
+                        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
+                               value="{{ $book->title }}" placeholder="{{ __('Título') }}" required="required"autofocus>
             
                         <div class="input-group-append">
                             <div class="input-group-text bg-primary">
-                                <span class="fas fa-user {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                                <span class="fas fa-book {{ config('adminlte.classes_auth_icon', '') }}"></span>
                             </div>
                         </div>
             
-                        @error('name')
+                        @error('title')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -60,8 +61,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="input-group mb-3">
-                        <input type="text" name="last_name" class="form-control @error('last_name') is-invalid @enderror"
-                               value="{{ $book->last_name }}" placeholder="{{ __('Apellido') }}" required="required"autofocus>
+                        <input type="text" name="author" class="form-control @error('author') is-invalid @enderror"
+                               value="{{ $book->author }}" placeholder="{{ __('Autor') }}" required="required"autofocus>
             
                         <div class="input-group-append">
                             <div class="input-group-text bg-primary">
@@ -69,7 +70,7 @@
                             </div>
                         </div>
             
-                        @error('last_name')
+                        @error('author')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -78,64 +79,82 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="input-group mb-3">
-                        <input type="text" name="number_id" class="form-control @error('number_id') is-invalid @enderror"
-                               value="{{ $book->number_id }}" placeholder="{{ __('Cédula') }} por defecto(V00000000)" required="required"autofocus>
+                        <input type="text" name="editorial" class="form-control @error('editorial') is-invalid @enderror"
+                               value="{{ $book->editorial }}" placeholder="{{ __('Editorial') }}" required="required"autofocus>
         
                         <div class="input-group-append">
                             <div class="input-group-text bg-primary">
-                                <span class="fas fa-address-card {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                                <span class="fas fa-audio-description {{ config('adminlte.classes_auth_icon', '') }}"></span>
                             </div>
                         </div>
             
-                        @error('number_id')
+                        @error('editorial')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-4">
+
+                <div class="col-md-6">
                     <div class="input-group mb-3">
-                        <input type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror"
-                               value="{{ $book->phone }}" placeholder="{{ __('Teléfono') }} por defecto(+5800000000)" required="required"autofocus>
+
+                        <input type="date" name="publication_year" class="form-control @error('publication_year') is-invalid @enderror"
+                        value="{{ $book->publication_year }}" placeholder="{{ __('Fecha de publicacion') }}" required="required"autofocus">
+                        
+                        <div class="input-group-append">
+                            <div class="input-group-text bg-primary">
+                                <span class="fas fa-calendar {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                            </div>
+                        </div>
+                        
+                        @error('publication_year')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group mb-3">
+                        <input type="text" name="genre" class="form-control @error('genre') is-invalid @enderror"
+                               value="{{ $book->genre }}" placeholder="{{ __('Genero') }}">
             
                         <div class="input-group-append">
                             <div class="input-group-text bg-primary">
-                                <span class="fas fa-phone {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                                <span class="fas fa-clipboard-list {{ config('adminlte.classes_auth_icon', '') }}"></span>
                             </div>
                         </div>
             
-                        @error('phone')
+                        @error('genre')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="input-group mb-3">
-                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                               value="{{ $book->email }}" placeholder="{{ __('Correo') }}">
-            
-                        <div class="input-group-append">
+                <div class="col-md-6">
+                    {{-- With prepend slot, label and data-placeholder config --}}
+                    <x-adminlte-select2 name="shelf_id" label-class="text-lightblue" igroup-size="lg" data-placeholder="Estanteria">
+                        <x-slot name="appendSlot">
                             <div class="input-group-text bg-primary">
-                                <span class="fas fa-envelope {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                                <i class="fas fa-border-all"></i>
                             </div>
-                        </div>
-            
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
+                        </x-slot>
+                        <option>Seleccione Estanteria</option>
+                        @foreach ($shelfs as $shelf)
+                            <option value="{{$shelf->id}}"@if($book->shelf_id == $shelf->id) selected @endif>{{$shelf->name}}</option>
+                        @endforeach
+                    </x-adminlte-select2>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <x-adminlte-textarea name="address" label="Direccion" rows=5  igroup-size="sm" placeholder="Inserte la direccion...">{{ $book->address }}
+                    <x-adminlte-textarea name="decription" label="Descripcion" rows=5  igroup-size="sm" placeholder="Inserte descripcion">{{ $book->decription }}
                         <x-slot name="prependSlot">
                             <div class="input-group-text bg-primary">
                                 <i class="fas fa-lg fa-file-alt text-white"></i>

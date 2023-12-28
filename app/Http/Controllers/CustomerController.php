@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Validation\Rules;
 
 class CustomerController extends Controller
 {
@@ -83,7 +81,7 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
-        $customer = Customer::findOrFail($id);
+        $customer = Customer::find($id);
 
         return view('customer.edit', compact('customer'));
     }

@@ -125,7 +125,7 @@
             
                         <div class="input-group-append">
                             <div class="input-group-text bg-primary">
-                                <span class="fas fa-envelope {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                                <span class="fas fa-clipboard-list {{ config('adminlte.classes_auth_icon', '') }}"></span>
                             </div>
                         </div>
             
@@ -138,13 +138,13 @@
                 </div>
                 <div class="col-md-6">
                     {{-- With prepend slot, label and data-placeholder config --}}
-                    <x-adminlte-select2 name="shelf_id" label-class="text-lightblue"
-                        igroup-size="md" data-placeholder="Estanteria">
+                    <x-adminlte-select2 name="shelf_id" label-class="text-lightblue" igroup-size="lg" data-placeholder="Estanteria">
                         <x-slot name="appendSlot">
                             <div class="input-group-text bg-primary">
                                 <i class="fas fa-border-all"></i>
                             </div>
                         </x-slot>
+                        <option>Seleccione Estanteria</option>
                         @foreach ($shelfs as $shelf)
                             <option value="{{$shelf->id}}">{{$shelf->name}}</option>
                         @endforeach

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Shelf;
 use Carbon\Carbon;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -16,7 +17,7 @@ class BookController extends Controller
     {
         $books = Book::select('books.*','shelfs.name AS shelfs')
                         ->join('shelfs', 'books.shelf_id',"=",'shelfs.id')
-                        ->get();;
+                        ->get();
         return view("book.index", compact("books"));
     }
 
@@ -45,8 +46,14 @@ class BookController extends Controller
             'shelf_id' => 'required',
         ]);
 
+        if(!is_numeric($request->shelf_id)){
+            throw ValidationException::withMessages([
+                'shelf_id'=> 'por favor selecciones una estanteria'
+            ]);
+        }
+
         $date = Carbon::parse($request->date);
-        $date = $date->format('Y');
+        $date = $date->format('Y-m-d');
 
         $book = Book::create([
             "title"=> $request->title,
@@ -69,7 +76,9 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        $book = Book::find($id);
+        $book = Book::select('books.*','shelfs.name AS shelfs')
+                    ->join('shelfs', 'books.shelf_id',"=",'shelfs.id')
+                    ->find($id);
         return view('book.view', compact('book'));
     }
 
@@ -78,8 +87,9 @@ class BookController extends Controller
      */
     public function edit(string $id)
     {
-        $book=Book::find($id);
-        return view('booko,edit', compact('book'));
+        $book = Book::find($id);
+        $shelfs = Shelf::all();
+        return view('book.edit', compact('book','shelfs'));
     }
 
     /**
@@ -99,7 +109,7 @@ class BookController extends Controller
 
         $book = Book::find($id);
         $date = Carbon::parse($request->date);
-        $date = $date->format('Y');
+        $date = $date->format('Y-m-d');
 
         $status = $book->update([
             "title"=> $request->title,
