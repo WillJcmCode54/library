@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Shelf;
+use App\Models\Warehouse;
 use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::select('books.*','shelfs.name AS shelfs')
+        $books = Book::select('books.*','shelfs.name AS shelf')
                         ->join('shelfs', 'books.shelf_id',"=",'shelfs.id')
                         ->get();
         return view("book.index", compact("books"));
@@ -64,6 +65,10 @@ class BookController extends Controller
             'genre' => $request->genre,
             'shelf_id' => $request->shelf_id,
         ]);
+        Warehouse::create([
+            'book_id'=> $book->id,
+            'actual_quantity'=> 0
+        ]);
         if($book){
             return redirect()->route('book.index')->with('success','Guardado con Exitoso');
         }else{
@@ -76,12 +81,12 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        $book = Book::select('books.*','shelfs.name AS shelfs')
+        $book = Book::select('books.*','shelfs.name AS shelf')
                     ->join('shelfs', 'books.shelf_id',"=",'shelfs.id')
                     ->find($id);
         return view('book.view', compact('book'));
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      */
@@ -107,6 +112,12 @@ class BookController extends Controller
             'shelf_id' => 'required',
         ]);
 
+        if(!is_numeric($request->shelf_id)){
+            throw ValidationException::withMessages([
+                'shelf_id'=> 'por favor selecciones una estanteria'
+            ]);
+        }
+
         $book = Book::find($id);
         $date = Carbon::parse($request->date);
         $date = $date->format('Y-m-d');
@@ -126,7 +137,7 @@ class BookController extends Controller
             return redirect()->back()->with('error','Se ha producido un error');
         }
     }
-
+    
     /**
      * Remove the specified resource from storage.
      */
@@ -136,5 +147,15 @@ class BookController extends Controller
         $name = $book->name;
         $book->delete();
         return redirect()->route('book.index')->with('error','Se ha eliminado a '.$name );
+    }
+    
+    /* funciones para los json() */
+    public function check(string $id)
+    {
+        $book = Book::select('books.*','shelfs.name AS shelfs','warehouse.actual_quantity AS quantity')
+                    ->join('warehouse', 'books.id',"=",'warehouse.book_id')
+                    ->join('shelfs', 'books.shelf_id',"=",'shelfs.id')
+                    ->find($id);
+        return response()->json($book, 200);
     }
 }

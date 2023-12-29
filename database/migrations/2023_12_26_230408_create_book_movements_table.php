@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('book_movements', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->unique();
             $table->string('type_movement');
-            $table->date('loan_date');
-            $table->date('retun_date');
+            $table->string('status');
+            $table->date('loan_date')->nullable();
+            $table->date('retun_date')->nullable();
             $table->date('real_date')->nullable();
             $table->integer('user_id');
-            $table->integer('customer_id');
+            $table->integer('customer_id')->nullable();
             $table->timestamps();
         });
     }

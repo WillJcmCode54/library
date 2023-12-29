@@ -33,7 +33,7 @@
     @endif
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Editar de Estantería</h3>
+        <h3 class="card-title">Editar Estantería</h3>
     </div>
     <form action="{{ route('shelf.update',['id'=> $shelf->id]) }}" method="post">
         @csrf

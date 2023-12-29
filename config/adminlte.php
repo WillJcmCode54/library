@@ -308,9 +308,9 @@ return [
             'icon'    => 'fas fa-fw fa-tasks',
             'submenu' => [
                 [
-                    'text' => 'resumen',
+                    'text' => 'show',
                     'icon' => 'fas fa-fw fa-eye',
-                    'url'  => '#',
+                    'url'  => '/movement',
                 ],
                 [
                     'text' => 'prestamos',

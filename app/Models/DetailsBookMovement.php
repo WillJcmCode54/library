@@ -13,12 +13,12 @@ class DetailsBookMovement extends Model
     * Vision detallada
     */
 
-    public $table = "details_book_movement";
+    public $table = "details_book_movements";
     public $fillable = [
         'id',
         'book_movement_id',
         'type_movement',
         'book_id',
-        'quentity'
+        'quantity'
     ];
 }

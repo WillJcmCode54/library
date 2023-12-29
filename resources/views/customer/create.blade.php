@@ -33,7 +33,7 @@
     @endif
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Crear de Cliente</h3>
+        <h3 class="card-title">Crear Cliente</h3>
     </div>
     <form action="{{ route('customer.store') }}" method="post">
         @csrf

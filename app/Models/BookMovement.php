@@ -18,6 +18,8 @@ class BookMovement extends Model
 
     public $fillable = [
         'id',
+        'code',
+        'status',
         'type_movement',
         'loan_date',
         'return_date',

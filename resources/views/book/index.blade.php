@@ -20,6 +20,9 @@
 @stop
 
 @section('content')
+@php
+    use Carbon\Carbon;
+@endphp
 @if($message = Session::get('success'))
     <x-adminlte-alert theme="success" title="Exito" dismissable>
         {{$message}}
@@ -61,8 +64,12 @@
             <td>{{$book->title}}</td>
             <td>{{$book->author}}</td>
             <td>{{$book->editorial}}</td>
-            <td>{{$book->shelfs}}</td>
-            <td>{{$book->publication_year}}</td>
+            <td>{{$book->shelf}}</td>
+            @php
+                $date = Carbon::parse($book->publication_year);
+                $date = $date->format('d-m-Y');
+            @endphp
+            <td>{{$date}}</td>
             <td>{{$book->genre}}</td>
             <td>{{$book->decription}}</td>
             <td> 

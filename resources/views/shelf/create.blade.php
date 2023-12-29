@@ -33,7 +33,7 @@
     @endif
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Crear de Estantería</h3>
+        <h3 class="card-title">Crear Estantería</h3>
     </div>
     <form action="{{ route('shelf.store') }}" method="post">
         @csrf

@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\MovementController;
 use App\Http\Controllers\ShelfController;
 use Illuminate\Support\Facades\Route;
 
@@ -54,9 +55,24 @@ Route::middleware('auth')->group(function () {
         Route::get('/book/create', [BookController::class, 'create'])->name('book.create');
         Route::post('/book/create', [BookController::class, 'store'])->name('book.store');
         Route::get('/book/view/{id}', [BookController::class, 'show'])->name('book.view');
+        Route::get('/book/check/{id}', [BookController::class, 'check'])->name('book.check');
         Route::get('/book/edit/{id}', [BookController::class, 'edit'])->name('book.edit');
         Route::post('/book/edit/{id}', [BookController::class, 'update'])->name('book.update');
         Route::delete('/book/delete/{id}', [BookController::class, 'destroy'])->name('book.destroy');
+
+    // Movimeintos
+        Route::get('/movement', [MovementController::class, 'index'])->name('movement.index');
+        Route::get('/movement/create', [MovementController::class, 'create'])->name('movement.create');
+        Route::post('/movement/create', [MovementController::class, 'store'])->name('movement.store');
+        Route::get('/movement/view/{id}', [MovementController::class, 'show'])->name('movement.view');
+        Route::get('/movement/edit/{id}', [MovementController::class, 'edit'])->name('movement.edit');
+        Route::post('/movement/edit/{id}', [MovementController::class, 'update'])->name('movement.update');
+        Route::delete('/movement/delete/{id}', [MovementController::class, 'destroy'])->name('movement.destroy');
+        Route::post('/movement/status/{id}', [MovementController::class, 'changeStatus'])->name('movement.status');
+    
+    //Devoluciones
+
+    //Prestamos
 });
 
 require __DIR__.'/auth.php';
