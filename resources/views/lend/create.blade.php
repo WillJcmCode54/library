@@ -1,18 +1,18 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Movimientos')
+@section('title', 'Prestamos')
 
 @section('content_header')
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-            <h1>Movimientos</h1>
+            <h1>Prestamos</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{route('home')}}">Dashboard</a></li>
-                    <li class="breadcrumb-item" ><a href="{{route('movement.index')}}">Movimientos</a></li>
+                    <li class="breadcrumb-item" ><a href="{{route('lend.index')}}">Prestamos</a></li>
                     <li class="breadcrumb-item active">Crear</li>
                 </ol>
             </div>
@@ -37,9 +37,9 @@
     @endphp
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Crear Movimiento</h3>
+        <h3 class="card-title">Crear Prestamos</h3>
     </div>
-    <form action="{{ route('movement.store') }}" method="post">
+    <form action="{{ route('lend.store') }}" method="post">
         @csrf
         <div class="card-body">
             <div class="row">
@@ -48,18 +48,39 @@
                     <input type="hidden" name="code" value="{{$newReferece}}">
                 </div>
                 <div class="col-md-4">
-                    <p><Strong>Fecha:</Strong> {{Carbon::today()->format('d-m-Y')}}</p>
-                    <input type="hidden" name="date" value="{{Carbon::today()->format('Y-m-d')}}">
+                    <p><Strong>Tipo de Prestamos:</Strong> Prestar</p>
                 </div>
                 <div class="col-md-4">
-                    <p><Strong>Tipo de Movimiento:</Strong> 
-                    @if ($type_movement == "load")
-                        Cargar
-                    @else
-                        Descargar
-                    @endif
-                    </p>
-                    <input type="hidden" name="type_movement" value="{{$type_movement}}">
+                    @php
+                        $startDate = (old('dateRange')) ? explode("-", old('dateRange'))[0] : Carbon::today();
+                        $endDate = (old('dateRange')) ? explode("-", old('dateRange'))[1] : Carbon::today();
+                        $config = [
+                            "timePicker" => false,
+                            "startDate" => $startDate,
+                            "endDate" => $endDate,
+                            "locale" => [
+                                "format" => "YYYY/MM/DD",
+                                "fromLabel"=> "Desde",
+                                "toLabel"=> "Hasta",
+                                "daysOfWeek" => ["D","L","M","M","J","V","S"],
+                                "monthNames"=> ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
+                            ]
+                        ];
+                        @endphp
+
+                    {{-- Label and placeholder --}}
+                    <x-adminlte-date-range name="dateRange" :config="$config" label-class="@error('dateRange') is-invalid @enderror">
+                        <x-slot name="prependSlot">
+                            <div class="input-group-text bg-gradient-info">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                        </x-slot>
+                    </x-adminlte-date-range>
+                    @error('dateRange')
+                        <span class="invalid-feedback" role="alert" style="display: block!important;">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
             </div>
             <div class="row">
@@ -78,6 +99,25 @@
                     </x-adminlte-select2>
                     @error('book_id')
                         <span class="invalid-feedback" role="alert" style="display: block!important;">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <x-adminlte-select2 name="customer_id" id="customer_id" label="Cliente" label-class="text-lightblue"
+                        igroup-size="md" data-placeholder="{{__('Agregar Cliente...')}}">
+                        <x-slot name="prependSlot">
+                            <div class="input-group-text bg-gradient-info">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </x-slot>
+                        <option >{{__('Agregar Cliente...')}}</option>
+                        @foreach ($customers as $customer)
+                            <option value="{{ $customer->id }}" {{(old('customer_id')) ? "selected": ''}}> {{ $customer->name }} {{ $customer->last_name }}</option>
+                        @endforeach
+                    </x-adminlte-select2>
+                    @error('customer_id')
+                        <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror

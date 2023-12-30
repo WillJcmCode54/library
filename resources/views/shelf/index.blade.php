@@ -99,8 +99,6 @@
     </div>
 </div>
 
-
-
 {{--Modal view--}}
 
 <div class="modal fade" id="commonModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -122,27 +120,27 @@
 @stop
 
 @section('js')
-<script>
-    document.addEventListener('click',async function (e) {
-        const target = e.target.closest('a[data-action="show-modal"]');
-        if (target) {
-            e.preventDefault();
-            document.querySelector('#modalLabel').innerHTML= target.dataset.title;
-            const response = await fetch(target.dataset.url);
-            const body =  await response.text();
-            document.querySelector('#modalContent').innerHTML = body;
-            document.querySelector('#modal-dialog').classList.add('modal-'+target.dataset.size);
-            $('#commonModal').modal('show');
-        }else{
-            var getDelete = e.target.closest('button[data-action="delete-modal"]');
-            if(getDelete){
+    <script>
+        document.addEventListener('click',async function (e) {
+            const target = e.target.closest('a[data-action="show-modal"]');
+            if (target) {
                 e.preventDefault();
-                document.querySelector('#modalDLabel').innerHTML= getDelete.dataset.title;
-                document.querySelector('form[id="deleteFormModal"]').action= getDelete.dataset.url
-                $('#deleteModal').modal('show');
+                document.querySelector('#modalLabel').innerHTML= target.dataset.title;
+                const response = await fetch(target.dataset.url);
+                const body =  await response.text();
+                document.querySelector('#modalContent').innerHTML = body;
+                document.querySelector('#modal-dialog').classList.add('modal-'+target.dataset.size);
+                $('#commonModal').modal('show');
+            }else{
+                var getDelete = e.target.closest('button[data-action="delete-modal"]');
+                if(getDelete){
+                    e.preventDefault();
+                    document.querySelector('#modalDLabel').innerHTML= getDelete.dataset.title;
+                    document.querySelector('form[id="deleteFormModal"]').action= getDelete.dataset.url
+                    $('#deleteModal').modal('show');
+                }
             }
-        }
-    })
+        })
 </script>
 @stop
 

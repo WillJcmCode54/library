@@ -1,19 +1,19 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Movimientos')
+@section('title', 'Prestamos')
 
 @section('content_header')
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-            <h1>Movimientos</h1>
+            <h1>Prestamos</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{route('home')}}">Dashboard</a></li>
-                    <li class="breadcrumb-item" ><a href="{{route('movement.index')}}">Movimientos</a></li>
-                    <li class="breadcrumb-item active">Crear</li>
+                    <li class="breadcrumb-item" ><a href="{{route('lend.index')}}">Prestamos</a></li>
+                    <li class="breadcrumb-item active">Editar</li>
                 </ol>
             </div>
         </div>
@@ -37,29 +37,50 @@
     @endphp
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Crear Movimiento</h3>
+        <h3 class="card-title">Editar Prestamos</h3>
     </div>
-    <form action="{{ route('movement.store') }}" method="post">
+    <form action="{{ route('lend.update', ['id'=> $lends->id]) }}" method="post">
         @csrf
         <div class="card-body">
             <div class="row">
                 <div class="col-md-4">
-                    <p><Strong>Codigo de Referencia:</Strong> {{$newReferece}}</p>
-                    <input type="hidden" name="code" value="{{$newReferece}}">
+                    <p><Strong>Codigo de Referencia:</Strong> {{$lends->code}}</p>
                 </div>
                 <div class="col-md-4">
-                    <p><Strong>Fecha:</Strong> {{Carbon::today()->format('d-m-Y')}}</p>
-                    <input type="hidden" name="date" value="{{Carbon::today()->format('Y-m-d')}}">
+                    <p><Strong>Tipo de Prestamos:</Strong> Prestar</p>
                 </div>
                 <div class="col-md-4">
-                    <p><Strong>Tipo de Movimiento:</Strong> 
-                    @if ($type_movement == "load")
-                        Cargar
-                    @else
-                        Descargar
-                    @endif
-                    </p>
-                    <input type="hidden" name="type_movement" value="{{$type_movement}}">
+
+                    @php
+                        $startDate = (old('dateRange')) ? explode("-", old('dateRange'))[0] : $lends->loan_date;
+                        $endDate = (old('dateRange')) ? explode("-", old('dateRange'))[1] : $lends->return_date;
+                        $config = [
+                            "timePicker" => false,
+                            "startDate" => $startDate,
+                            "endDate" => $endDate,
+                            "locale" => [
+                                "format" => "YYYY/MM/DD",
+                                "fromLabel"=> "Desde",
+                                "toLabel"=> "Hasta",
+                                "daysOfWeek" => ["D","L","M","M","J","V","S"],
+                                "monthNames"=> ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
+                            ]
+                        ];
+                        @endphp
+
+                    {{-- Label and placeholder --}}
+                    <x-adminlte-date-range name="dateRange" :config="$config" label-class="@error('dateRange') is-invalid @enderror">
+                        <x-slot name="prependSlot">
+                            <div class="input-group-text bg-gradient-info">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                        </x-slot>
+                    </x-adminlte-date-range>
+                    @error('dateRange')
+                        <span class="invalid-feedback" role="alert" style="display: block!important;">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
             </div>
             <div class="row">
@@ -82,6 +103,25 @@
                         </span>
                     @enderror
                 </div>
+                <div class="col-md-6 col-sm-12">
+                    <x-adminlte-select2 name="customer_id" id="customer_id" label="Cliente" label-class="text-lightblue"
+                        igroup-size="md" data-placeholder="{{__('Agregar Cliente...')}}">
+                        <x-slot name="prependSlot">
+                            <div class="input-group-text bg-gradient-info">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </x-slot>
+                        <option >{{__('Agregar Cliente...')}}</option>
+                        @foreach ($customers as $customer)
+                            <option value="{{ $customer->id }}" {{(old('customer_id') || $customer->id == $lends->customer_id) ? "selected": ''}} > {{ $customer->name }} {{ $customer->last_name }}</option>
+                        @endforeach
+                    </x-adminlte-select2>
+                    @error('customer_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
             </div>      
             <div class="row">
                 <div class="col-12">
@@ -94,6 +134,18 @@
                                 <th><i class="fa fa-lg fa-fw fa-trash"></i></th>
                             </thead>
                             <tbody id="tbody">
+                                @foreach ($movementsDetails as $detail)
+                                    <tr id="{{$detail->book_id}}">
+                                        <input type="hidden" name="book_id[]" value="{{$detail->book_id}}">
+                                        <td>{{$detail->book_id}}</td>
+                                        <td>{{$detail->title}} de {{$detail->author}} ({{$detail->publication_year}})</td>
+                                        @php
+                                            $quantity = ($detail->quantity < 0 ) ? $detail->quantity * -1 : $detail->quantity  ;
+                                        @endphp
+                                        <td><input type="number" name="quantity[{{$detail->book_id}}]" class="form-control quantity" value="{{$quantity}}"  min="1" step="any"></td>
+                                        <td><a class="btn btn-outline-danger delete-article"><i class="fas fa-trash-alt delete-article"></i></a></td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

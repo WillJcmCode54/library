@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('type_movement');
             $table->string('status');
             $table->date('loan_date')->nullable();
-            $table->date('retun_date')->nullable();
+            $table->date('return_date')->nullable();
             $table->date('real_date')->nullable();
             $table->integer('user_id');
             $table->integer('customer_id')->nullable();

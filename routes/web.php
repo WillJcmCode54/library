@@ -4,7 +4,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\LendController;
 use App\Http\Controllers\MovementController;
+use App\Http\Controllers\ReturnController;
 use App\Http\Controllers\ShelfController;
 use Illuminate\Support\Facades\Route;
 
@@ -69,10 +71,23 @@ Route::middleware('auth')->group(function () {
         Route::post('/movement/edit/{id}', [MovementController::class, 'update'])->name('movement.update');
         Route::delete('/movement/delete/{id}', [MovementController::class, 'destroy'])->name('movement.destroy');
         Route::post('/movement/status/{id}', [MovementController::class, 'changeStatus'])->name('movement.status');
-    
-    //Devoluciones
-
+        
     //Prestamos
+        Route::get('/lend', [LendController::class, 'index'])->name('lend.index');
+        Route::get('/lend/create', [LendController::class, 'create'])->name('lend.create');
+        Route::post('/lend/create', [LendController::class, 'store'])->name('lend.store');
+        Route::get('/lend/view/{id}', [LendController::class, 'show'])->name('lend.view');
+        Route::get('/lend/edit/{id}', [LendController::class, 'edit'])->name('lend.edit');
+        Route::post('/lend/edit/{id}', [LendController::class, 'update'])->name('lend.update');
+        Route::delete('/lend/delete/{id}', [LendController::class, 'destroy'])->name('lend.destroy');
+        Route::post('/lend/status/{id}', [LendController::class, 'changeStatus'])->name('lend.status');
+        
+    //Devoluciones
+        Route::get('/return', [ReturnController::class, 'index'])->name('return.index');
+        Route::get('/return/view/{id}', [ReturnController::class, 'show'])->name('return.view');
+        Route::get('/return/edit/{id}', [ReturnController::class, 'edit'])->name('return.edit');
+        Route::post('/return/edit/{id}', [ReturnController::class, 'update'])->name('return.update');
+        Route::post('/return/status/{id}', [ReturnController::class, 'changeStatus'])->name('return.status');
 });
 
 require __DIR__.'/auth.php';

@@ -307,43 +307,21 @@ return [
             'text'    => 'Movimientos',
             'icon'    => 'fas fa-fw fa-tasks',
             'submenu' => [
-                [
-                    'text' => 'show',
-                    'icon' => 'fas fa-fw fa-eye',
-                    'url'  => '/movement',
-                ],
-                [
-                    'text' => 'prestamos',
-                    'icon' => 'fas fa-fw fa-thumbtack',
-                    'submenu' =>[
-                        [
-                            'text' => 'show',
-                            'icon' => 'fas fa-fw fa-eye',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'register',
-                            'icon' => 'fas fa-fw fa-folder-open',
-                            'url' => '#',
-                        ],
-                        ]
-                ],
-                [
-                    'text' => 'devoluciones',
-                    'icon' => 'fas fa-fw fa-thumbtack',
-                    'submenu' => [
-                        [
-                            'text' => 'show',
-                            'icon' => 'fas fa-fw fa-eye',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'register',
-                            'icon' => 'fas fa-fw fa-folder-open',
-                            'url' => '#',
-                        ],
-                ]
-                ],
+                    [
+                        'text' => 'show',
+                        'icon' => 'fas fa-fw fa-eye',
+                        'url'  => '/movement',
+                    ],
+                    [
+                        'text' => 'Prestamos',
+                        'icon' => 'fas fa-fw fa-thumbtack',
+                        'url' => '/lend'
+                    ],
+                    [
+                        'text' => 'Devoluciones',
+                        'icon' => 'fas fa-fw fa-thumbtack',
+                        'url' => '/return',
+                    ]
             ],
         ],
         ['header' => 'settings'],
@@ -444,28 +422,23 @@ return [
                 ],
             ],
         ],
-        'Sweetalert2' => [
+        'daterangepicker' => [
             'active' => true,
             'files' => [
                 [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '//cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css',
+                ],
+                [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
-                ],
-            ],
-        ],
-        'Pace' => [
-            'active' => false,
-            'files' => [
-                [
-                    'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-center-radar.min.css',
+                    'location' => '//cdn.jsdelivr.net/momentjs/latest/moment.min.js',
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                    'asset' => true,
+                    'location' => '//cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js',
                 ],
             ],
         ],
