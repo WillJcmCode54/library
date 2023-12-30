@@ -99,12 +99,13 @@
                     @if ($lend->status == 'saved')     
                         <a href="{{route('lend.edit',['id'=> $lend->id])}}" class="btn btn-xs btn-default text-primary" title="Editar"><i class="fa fa-lg fa-fw fa-pen"></i></a>
                         <button class="btn btn-xs btn-default text-warning"  
-                            title="Editar"
+                            title="Asentar"
                             data-action="status-modal" 
                             data-url="{{route('lend.status',['id'=> $lend->id])}}" 
                             data-title="Asentar el movimiento {{$lend->code}}"><i class="fas fa-fw fa-thumbtack "></i>
                         </button>
                         <button class="btn btn-xs btn-default text-danger" 
+                            title="Eliminar"
                             data-action="delete-modal" 
                             data-url="{{route('lend.destroy',['id'=> $lend->id])}}" 
                             data-title="Eliminar el movimiento {{$lend->code}}"><i class="fa fa-lg fa-fw fa-trash"></i>

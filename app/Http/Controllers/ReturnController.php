@@ -95,7 +95,7 @@ class ReturnController extends Controller
         foreach ($movementDetails as $key => $detail) {
             $warehouse = Warehouse::find($detail->book_id);
             $oldQuantity = (is_null($warehouse->actual_quantity)) ? 0 : $warehouse->actual_quantity ;
-            $newQuantity = $oldQuantity + $detail->quantity;
+            $newQuantity = $oldQuantity + ($detail->quantity * -1);
             $warehouse->actual_quantity = $newQuantity;
             $warehouse->save();
         }

@@ -108,12 +108,13 @@
                     @if ($movement->status == 'saved')     
                         <a href="{{route('movement.edit',['id'=> $movement->id])}}" class="btn btn-xs btn-default text-primary" title="Editar"><i class="fa fa-lg fa-fw fa-pen"></i></a>
                         <button class="btn btn-xs btn-default text-warning"  
-                            title="Editar"
+                            title="Asentar"
                             data-action="status-modal" 
                             data-url="{{route('movement.status',['id'=> $movement->id])}}" 
                             data-title="Asentar el movimiento {{$movement->code}}"><i class="fas fa-fw fa-thumbtack "></i>
                         </button>
                         <button class="btn btn-xs btn-default text-danger" 
+                            title="Eliminar"
                             data-action="delete-modal" 
                             data-url="{{route('movement.destroy',['id'=> $movement->id])}}" 
                             data-title="Eliminar el movimiento {{$movement->code}}"><i class="fa fa-lg fa-fw fa-trash"></i>

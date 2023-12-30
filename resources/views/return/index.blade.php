@@ -100,7 +100,7 @@
                     @if ($return->type_movement == 'lend')     
                         <a href="{{route('return.edit',['id'=> $return->id])}}" class="btn btn-xs btn-default text-primary" title="Editar"><i class="fa fa-lg fa-fw fa-pen"></i></a>
                         <button class="btn btn-xs btn-default text-warning"  
-                            title="Editar"
+                            title="Asentar"
                             data-action="status-modal" 
                             data-url="{{route('return.status',['id'=> $return->id])}}" 
                             data-title="Asentar el movimiento {{$return->code}}"><i class="fas fa-fw fa-thumbtack "></i>
