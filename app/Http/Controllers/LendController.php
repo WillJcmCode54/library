@@ -73,7 +73,7 @@ class LendController extends Controller
         $lends = BookMovement::create([
             'code' => $request->code,
             'status' => "saved",
-            'type_movement' => $request->type_movement,
+            'type_movement' => 'lend',
             'loan_date' => $date[0],
             'return_date' => $date[1],
             'user_id'=> Auth::user()->id,

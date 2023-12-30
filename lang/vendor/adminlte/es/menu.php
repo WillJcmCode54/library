@@ -18,6 +18,7 @@ return [
     'warning'                       => 'Advertencia',
     'information'                   => 'Información',
     'Books'                         => 'Libros',
+    'Warehouse'                     => 'Almacen',
     'customers'                     => 'Clientes',
     'shelfs'                        => 'Estanterias',
     'customer'                      => 'cliente',

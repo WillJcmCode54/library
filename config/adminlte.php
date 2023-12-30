@@ -304,6 +304,11 @@ return [
             'icon' => 'fas fa-fw fa-book',
         ],
         [
+            'text' => 'Warehouse',
+            'url'  => '/warehouse',
+            'icon' => 'fas fa-fw fa-boxes',
+        ],
+        [
             'text'    => 'Movimientos',
             'icon'    => 'fas fa-fw fa-tasks',
             'submenu' => [
