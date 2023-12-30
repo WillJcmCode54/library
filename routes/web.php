@@ -9,6 +9,7 @@ use App\Http\Controllers\LendController;
 use App\Http\Controllers\MovementController;
 use App\Http\Controllers\ReturnController;
 use App\Http\Controllers\ShelfController;
+use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,7 @@ Route::get('/dashboard',[DashboardController::class, 'index'])->middleware(['aut
 
 Route::middleware('auth')->group(function () {
 
+    Route::get('/warehouse', [WarehouseController::class, 'index'])->name('warehouse.index');
     // Perfil
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

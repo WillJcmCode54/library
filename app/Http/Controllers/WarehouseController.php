@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 class WarehouseController extends Controller
 {
     public function index(){
-        $books = Book::select('books.*','warehouse.real_quantity AS quantity')
-                    ->join('warehouse','warehouse.book_id','=','book.id')
+        $books = Book::select('books.*','warehouse.actual_quantity AS quantity')
+                    ->join('warehouse','warehouse.book_id','=','books.id')
                     ->orderBy("id","desc")->get();
         return view("warehouse.index",compact("books"));
     }

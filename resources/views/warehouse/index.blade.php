@@ -41,7 +41,7 @@
             'Estantería',
             'Año de publicacion',
             'Genero',
-            'Existecia'
+            'Existecia',
             'Descripcion',
         ];
     @endphp
