@@ -71,10 +71,10 @@
             <td>{{$lend->id}}</td>
             <td>{{$lend->code}}</td>
             @php
-                $dateLoad = Carbon::parse($lend->date_load);
+                $dateLoad = Carbon::parse($lend->loan_date);
                 $dateLoad = $dateLoad->format('d-m-Y');
 
-                $dateReturn = Carbon::parse($lend->date_load);
+                $dateReturn = Carbon::parse($lend->return_date);
                 $dateReturn = $dateReturn->format('d-m-Y');
                 @endphp
             <td>{{$dateLoad}}</td>

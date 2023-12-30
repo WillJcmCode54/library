@@ -51,10 +51,10 @@
                 </div>
                 <div class="col-md-4">
                     @php
-                        $dateLoan = Carbon::parse($returns->date_loan);
+                        $dateLoan = Carbon::parse($returns->loan_date);
                         $dateLoan = $dateLoan->format('d-m-Y');
         
-                        $dateReturn = Carbon::parse($returns->date_return);
+                        $dateReturn = Carbon::parse($returns->return_date);
                         $dateReturn = $dateReturn->format('d-m-Y');
                     @endphp
                     <p><strong>Fecha Prestamos</strong>{{$dateLoan}}</p>

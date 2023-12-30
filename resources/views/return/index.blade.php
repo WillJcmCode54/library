@@ -65,10 +65,10 @@
             <td>{{$return->id}}</td>
             <td>{{$return->code}}</td>
             @php
-                $dateLoan = Carbon::parse($return->loan_return);
+                $dateLoan = Carbon::parse($return->loan_date);
                 $dateLoan = $dateLoan->format('d-m-Y');
 
-                $dateReturn = Carbon::parse($return->return_return);
+                $dateReturn = Carbon::parse($return->return_date);
                 $dateReturn = $dateReturn->format('d-m-Y');
 
                 if (!is_null($return->real_date)) {
