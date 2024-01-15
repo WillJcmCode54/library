@@ -35,7 +35,7 @@
     <div class="card-header">
         <h3 class="card-title">Crear Libro</h3>
     </div>
-    <form action="{{ route('book.store') }}" method="post">
+    <form action="{{ route('book.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="card-body">
             {{-- Name field --}}
@@ -146,7 +146,7 @@
                         </x-slot>
                         <option>Seleccione Estanteria</option>
                         @foreach ($shelfs as $shelf)
-                            <option value="{{$shelf->id}}">{{$shelf->name}}</option>
+                            <option value="{{$shelf->id}}" {{ old('shelf_id') == $shelf->id ? 'selected' :''}}>{{$shelf->name}}</option>
                         @endforeach
                     </x-adminlte-select2>
                 </div>
@@ -162,7 +162,22 @@
                     </x-adminlte-textarea>
                 </div>
             </div>
+            <div class="row">
+                <label for="img">Imagen</label>
+                <div class="row justify-content-center w-100">
+                    <img id="imgPreview" width="100" height="100"/>
+                    <div class="input-group mb-3">
+                        <input type="file" name="img" id="img" class="form-control" accept="image/png,image/jpeg">
+                        <div class="input-group-append">
+                            <div class="input-group-text bg-primary">
+                                <span class="fas fa-file-image {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
         {{-- Register button --}}
         <div class="card-footer">
             <div class="card-tools">
@@ -173,4 +188,33 @@
         </div>
     </form>
 </div>
+@stop
+
+@section('js')
+<script>
+
+    document.addEventListener('change', function (event) {
+        //Recuperamos el input que desencadeno la acción
+        const input = event.target;
+        if(input.closest('input[type="file"]'))
+        {            
+                //Recuperamos la etiqueta img donde cargaremos la imagen
+                $imgPreview = document.querySelector("img#imgPreview");
+            
+                // Verificamos si existe una imagen seleccionada
+                if(!input.files.length) return
+            
+                //Recuperamos el archivo subido
+                file = input.files[0];
+            
+                //Creamos la url
+                objectURL = URL.createObjectURL(file);
+            
+                //Modificamos el atributo src de la etiqueta img
+                $imgPreview.src = objectURL;
+        }
+    });
+
+                    
+</script>
 @stop

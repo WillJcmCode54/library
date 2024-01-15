@@ -42,7 +42,7 @@
             'Año de publicacion',
             'Genero',
             'Existecia',
-            'Descripcion',
+            // 'Descripcion',
         ];
     @endphp
 
@@ -51,7 +51,16 @@
     @foreach( $books as $book)
         <tr>
             <td>{{$book->id}}</td>
-            <td>{{$book->title}}</td>
+            <td>                
+                <div class="row w-100 align-items-center">
+                    <div class="col-md-3">
+                        <img src="{{asset($book->img)}}" alt="{{$book->title}}" class="img-circle img-size-64 mr-2" style="height: 64px">
+                    </div>
+                    <div class="col-md-9">
+                        {{$book->title}}
+                    </div>
+                </div>
+            </td>
             <td>{{$book->author}}</td>
             <td>{{$book->editorial}}</td>
             <td>{{$book->shelf}}</td>
@@ -62,7 +71,7 @@
             <td>{{$date}}</td>
             <td>{{$book->genre}}</td>
             <td>{{$book->quantity}}</td>
-            <td>{{$book->decription}}</td>
+            {{-- <td>{{$book->decription}}</td> --}}
         </tr>
     @endforeach
 </x-adminlte-datatable>

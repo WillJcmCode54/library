@@ -14,6 +14,7 @@ class Book extends Model
     public $fillable = [
         'id',
         'title',
+        'img',
         'author',
         'editorial',
         'decription',

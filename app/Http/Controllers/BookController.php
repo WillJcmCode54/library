@@ -8,6 +8,8 @@ use App\Models\Warehouse;
 use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
@@ -45,6 +47,7 @@ class BookController extends Controller
             'publication_year' => 'required',
             'genre' => 'required',
             'shelf_id' => 'required',
+            'img'=> 'image|max:5120',
         ]);
 
         if(!is_numeric($request->shelf_id)){
@@ -53,11 +56,19 @@ class BookController extends Controller
             ]);
         }
 
+        $path = ($request->hasFile('img')) ?
+        $request->file('img')->storeAs('public/img', Carbon::now()->format('Y-m-d')."_".mb_strtoupper($request->title).".png")
+        :
+            $path = "img/medicine.png";
+        
+        $url = Storage::url($path);
+
         $date = Carbon::parse($request->date);
         $date = $date->format('Y-m-d');
 
         $book = Book::create([
             "title"=> $request->title,
+            "img"=> $url,
             "author"=> $request->author,
             'editorial' => $request->editorial,
             'decription' => $request->decription,
@@ -110,6 +121,7 @@ class BookController extends Controller
             'publication_year' => 'required',
             'genre' => 'required',
             'shelf_id' => 'required',
+            'img'=> 'image|max:5120',
         ]);
 
         if(!is_numeric($request->shelf_id)){
@@ -118,12 +130,24 @@ class BookController extends Controller
             ]);
         }
 
+        $img = explode('/', $request->old_img);
+        if (isset($img[3]) && $img[3] != "book.png" ) {
+            Storage::disk('img')->delete($img[3]);
+        }
+        $path = ($request->hasFile('img')) ?
+            $request->file('img')->storeAs('public/img', Carbon::now()->format('Y-m-d')."_".mb_strtoupper($request->title).".png")
+        :
+            $path = "img/book.png";
+    
+        $url =  Storage::url($path);
+
         $book = Book::find($id);
         $date = Carbon::parse($request->date);
         $date = $date->format('Y-m-d');
 
         $status = $book->update([
             "title"=> $request->title,
+            "img"=> $url,
             "author"=> $request->author,
             'editorial' => $request->editorial,
             'decription' => $request->decription,
@@ -145,6 +169,10 @@ class BookController extends Controller
     {
         $book = Book::find($id);
         $name = $book->name;
+        $img = explode('/', $book->img);
+        if (isset($img[3]) && $img[3] != "book.png" ) {
+            Storage::disk('img')->delete($img[3]);
+        }
         $book->delete();
         return redirect()->route('book.index')->with('error','Se ha eliminado a '.$name );
     }
