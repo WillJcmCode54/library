@@ -30,7 +30,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateCustomer($request);
+        $this->validateCustomer($request,0);
 
         if(Customer::where('email', $request->email)->exists()){
             throw ValidationException::withMessages([
@@ -47,8 +47,8 @@ class CustomerController extends Controller
             $number_id = $legal."".$pre_value;
         }        
         
-        $phone = ($request->user()->phone);
-        $phone = (($phone[0]) != "+") ? "+58".$request->user()->phone : $request->user()->phone;
+        $phone = ($request->phone);
+        $phone = (($phone[0]) != "+") ? "+58".$request->phone : $request->phone;
 
         $customer = Customer::create([
             'name' => $request->name,
@@ -91,7 +91,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $this->validateCustomer($request);
+        $this->validateCustomer($request,1);
         
         if(Customer::where('email', $request->email)->where('id', "<>", $id)->exists()){
             throw ValidationException::withMessages([
@@ -110,8 +110,8 @@ class CustomerController extends Controller
             $number_id = $legal."".$pre_value;
         }        
         
-        $phone = ($request->user()->phone);
-        $phone = (($phone[0]) != "+") ? "+58".$request->user()->phone : $request->user()->phone;
+        $phone = ($request->phone);
+        $phone = (($phone[0]) != "+") ? "+58".$request->phone : $request->phone;
 
         $status = $customer->update([
             'name' => $request->name,
@@ -145,14 +145,27 @@ class CustomerController extends Controller
     /**
      * Validation
      */
-    public function validateCustomer($request){
-        $request->validate([  
-            'name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'max:255'],
-            'number_id'  => ['required', 'string', 'max:255'],
-            'address'  => ['required', 'string'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users'],
-         ]);
+    public function validateCustomer($request, $action){
+        if($action == 0){
+            $request->validate([  
+                        'name' => ['required', 'string', 'max:255'],
+                        'last_name' => ['required', 'string', 'max:255'],
+                        'phone' => ['required', 'string', 'max:255'],
+                        'number_id'  => ['required', 'string', 'max:255'],
+                        'address'  => ['required', 'string'],
+                        'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users'],
+                    ]);
+        }else{
+            $request->validate([  
+                        'name' => ['required', 'string', 'max:255'],
+                        'last_name' => ['required', 'string', 'max:255'],
+                        'phone' => ['required', 'string', 'max:255'],
+                        'number_id'  => ['required', 'string', 'max:255'],
+                        'address'  => ['required', 'string'],
+                        'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
+                    ]);
+        }
+       
+      
     }
 }
