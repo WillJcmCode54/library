@@ -59,11 +59,11 @@ class BookController extends Controller
         $path = ($request->hasFile('img')) ?
         $request->file('img')->storeAs('public/img', Carbon::now()->format('Y-m-d')."_".mb_strtoupper($request->title).".png")
         :
-            $path = "img/medicine.png";
+            $path = "img/book.png";
         
         $url = Storage::url($path);
 
-        $date = Carbon::parse($request->date);
+        $date = Carbon::parse($request->publication_year);
         $date = $date->format('Y-m-d');
 
         $book = Book::create([
@@ -130,19 +130,20 @@ class BookController extends Controller
             ]);
         }
 
-        $img = explode('/', $request->old_img);
-        if (isset($img[3]) && $img[3] != "book.png" ) {
-            Storage::disk('img')->delete($img[3]);
+        // $img = explode('/', $request->old_img);
+        // if (isset($img[3]) && $img[3] != "book.png" ) {
+        //     Storage::disk('img')->delete($img[3]);
+        // }
+        if($request->hasFile('img')) {
+            $path = $request->file('img')->storeAs('public/img', Carbon::now()->format('Y-m-d')."_".mb_strtoupper($request->title).".png");
+            $url =  Storage::url($path);
+        }else{
+            $url = $request->old_img;
         }
-        $path = ($request->hasFile('img')) ?
-            $request->file('img')->storeAs('public/img', Carbon::now()->format('Y-m-d')."_".mb_strtoupper($request->title).".png")
-        :
-            $path = "img/book.png";
+        // dd($url);
     
-        $url =  Storage::url($path);
-
         $book = Book::find($id);
-        $date = Carbon::parse($request->date);
+        $date = Carbon::parse($request->publication_year);
         $date = $date->format('Y-m-d');
 
         $status = $book->update([
